@@ -1,0 +1,15 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+
+void main() {
+	int a;
+	char* b[] = { "not", "yes" };
+	
+	printf("Enter a first number: ");
+	scanf("%d", &a);
+	printf("%s\n", b[(a >= 88) && (a <= 99)]);
+	
+	printf("Enter a second number: ");
+	scanf("%d", &a);
+	printf("%d", (a & (1 << 10)) >> 10);
+}
