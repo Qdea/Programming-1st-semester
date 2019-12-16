@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+void main() {
+	int a, b;
+	
+	// 1
+	printf("Vvedite chislo v 8-noi sisteme schisleniya: ");
+	scanf_s("%o", &a);
+	
+	// 2
+	printf("Chislo v 10-noi sisteme schisleniya: %d\n", a);
+	
+	// 3
+	printf("Chislo v 16-noi sisteme schisleniya: %x\n", a);
+	printf("Chislo v 16-noi sisteme schisleniya so sdvigom na 2 bita vlevo: %x\n", a << 2);
+
+	// 4
+	printf("Chislo v 16-noi sisteme schisleniya: %x\n", a);
+	printf("Chislo v 16-noi sisteme schisleniya posle operacii otricaniya: %x\n", ~a);
+
+	// 5
+	printf("Vvedite chislo v 16-noi sisteme schisleniya: ");
+	scanf_s("%x", &b);
+	printf("Resultat v 16-noi sisteme schisleniya posle operacii xor: %x\n", a ^ b);
+}
