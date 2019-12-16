@@ -1,0 +1,181 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <math.h>
+#include <string.h>
+#define N 2
+void lab5() {
+	int a[6] = { 0, 3, 5, 7, 11, 13 };
+	printf("Lab 5\n");
+	for (int i = 0; i < 6; i++) {
+		printf("%4d", a[i]);
+	}
+	printf("\n\n");
+	int b1[2][2] = { { 1, 0 },  { 1, 4 } };
+	int b2[2][2] = { { 1, 2 },  { 0, 1 } };
+	int c1[2][2];
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			c1[i][j] = 0;
+			for (int k = 0; k < N; k++) {
+				c1[i][j] += b1[i][k] * b2[k][j];
+			}
+		}
+	}
+	printf("%4d %4d\n", c1[0][0], c1[0][1]);
+	printf("%4d %4d\n", c1[1][0], c1[1][1]);
+}
+
+void lab6() {
+	int a[4];
+	int* p = a;
+	printf("Lab 6\n");
+	printf("Task 1\n");
+	p[0] = 0;
+	p[1] = 3;
+	p[2] = 5;
+	p[3] = 7;
+	for (int i = 0; i < 4; i++) {
+		printf("%4d", *(p + i));
+	}
+	printf("\n");
+
+	printf("Task 2\n");
+	int n = 4;
+	int* q = malloc(n * sizeof(int));
+	if (q) {
+		*q = 0;
+		q[1] = 3;
+		q[2] = 5;
+		q[3] = 7;
+		for (int i = 0; i < 4; i++) {
+			printf("%4d", *(q + i));
+		}
+		printf("\n");
+		free(q);
+	}
+}
+
+void lab7() {
+	enum { PAINT_WATERCOLOR = 1, PAINT_OIL = 2, PAINT_EMULSION = 3 };
+	printf("Lab 7\n");
+	printf("Task 1\n");
+	printf("Oil paint id: %d\n", PAINT_OIL);
+
+	struct point {
+		double x;
+		double y;
+	};
+	struct segment {
+		struct point a;
+		struct point b;
+		double length;
+	};
+	
+	printf("Task 2\n");
+	struct point A;
+	A.x = (double) 2.0;
+	A.y = (double) -3.0;
+	
+	struct point B;
+	B.x = (double) 14.0;
+	B.y = (double) 2.0;
+	
+	struct segment AB;
+	AB.a = A;
+	AB.b = B;
+	AB.length = sqrt((AB.a.x - AB.b.x) * (AB.a.x - AB.b.x) + (AB.a.y - AB.b.y) * (AB.a.y - AB.b.y));
+
+	printf("Length of AB: %4.2f\n", AB.length);
+
+	printf("Task 3\n");
+	enum {STATE_PLAYING = 1 << 0, STATE_PAUSED = 1 << 1, STATE_RECORDING = 1 << 2};
+	int bitField = STATE_PLAYING | STATE_PAUSED | STATE_RECORDING;
+	int mp3player;
+	printf("State of mp3 player: ");
+	scanf_s("%d", &mp3player);
+	mp3player = mp3player & bitField;
+	printf("Playing? %s\n", mp3player & STATE_PLAYING ? "yes" : "no");
+	printf("Paused? %s\n", mp3player & STATE_PAUSED ? "yes" : "no");
+	printf("Recording? %s\n", mp3player & STATE_RECORDING ? "yes" : "no");
+}
+
+void lab81() {
+	char str1[100];
+	char str2[100];
+	printf("Task 1. Enter two string to concatenate them:\n");
+	scanf("%s", &str1);
+	scanf("%s", &str2);
+
+	strcat(str1, str2);
+	printf("Concatenation of two string: %s\n", str1);
+}
+
+void lab82(){
+	char str1[100];
+	char str2[100];
+	printf("Task 2. Enter two strings to compare:\n");
+	scanf("%s", &str1);
+	scanf("%s", &str2);
+	if (strcmp(str1, str2) == 0)
+		puts("Strings are equal");
+	else
+		puts("Strings are different");
+
+}
+
+void lab83() {
+	char str1[100];
+	char str2[100];
+	printf("Task 3. Enter one string (it will be copied to another string):\n");
+	scanf("%s", &str1);
+	strcpy(str2, str1);
+	printf("Copied string: %s\n", str2);
+}
+
+void lab84() {
+	char str1[100];
+	char str2[100];
+	char* p;
+	printf("Task 4. Search for char set in the string. Enter string:\n");
+	scanf("%s", &str1);
+	printf("Enter char set:\n");
+	scanf("%s", &str2);
+	p = strpbrk(str1, str2);
+	if (p == NULL)
+		printf("Not found any char from char set\n");
+	else
+		printf("Char was founded on position: %d\n", p - str1 + 1);
+}
+
+void lab85() {
+	char str1[100];
+	char str2[100];
+	unsigned int pos = 0;
+	int max = 0;
+	printf("Task 5. Enter two strings to calculate length of unique segment:\n");
+	scanf("%s", &str1);
+	scanf("%s", &str2);
+	for (int i = 0; i < strlen(str1); i++) {
+		pos = strcspn(str1 + i, str2);
+		if (pos > max) {
+			max = pos;
+			
+		}
+	}
+	printf("Lenght of segment: %d\n", max);
+}
+
+void lab8() {
+	printf("Lab 8\n");
+	lab81();
+	lab82();
+	lab83();
+	lab84();
+	lab85();
+}
+
+void main() {
+	lab8();
+}
