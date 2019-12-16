@@ -1,0 +1,49 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+struct type_tariff {
+	int minutes_included;
+	float cost_per_minute;
+	float subscription_fee;
+};
+
+struct type_account {
+	struct type_tariff tariff;
+	int minutes_spent;
+	float cost_per_month;
+};
+
+void main()
+{
+	struct type_account account;
+	account.tariff.minutes_included = 499;
+
+	printf("Please input subscription fee: ");
+	scanf("%f", &account.tariff.subscription_fee);
+	if (account.tariff.subscription_fee < 0) {
+		printf("Wrong tariff parameters. Stopping...");
+		return;
+	}
+
+	printf("Please input cost per minute over limit: ");
+	scanf("%f", &account.tariff.cost_per_minute);
+	if (account.tariff.cost_per_minute < 0) {
+		printf("Wrong tariff parameters. Stopping...");
+		return;
+	}
+	if (account.tariff.cost_per_minute * account.tariff.minutes_included <= account.tariff.subscription_fee) {
+		printf("Wrong tariff parameters. Stopping...");
+		return;
+	}
+
+	printf("Please input minutes spent per month: ");
+	scanf("%d", &account.minutes_spent);
+
+	printf("Calculating...\n\n");
+	account.cost_per_month = account.minutes_spent - account.tariff.minutes_included > 0
+		? (account.minutes_spent - account.tariff.minutes_included) * account.tariff.cost_per_minute + account.tariff.subscription_fee
+		: account.tariff.subscription_fee;
+
+	printf("Monthly cost: ");
+	printf("%.2f\n", account.cost_per_month);
+}
