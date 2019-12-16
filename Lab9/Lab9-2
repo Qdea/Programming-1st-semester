@@ -1,0 +1,52 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+
+struct type_deposit {
+	float annual_rate;
+	int months_amount;
+};
+
+struct type_account {
+	struct type_deposit deposit;
+	float balance;
+	float balance_per_month[61];
+};
+
+void main()
+{
+	struct type_account account;
+
+	printf("Please input annual rate in percents (minimum 0, maximum 100): ");
+	scanf("%f", &account.deposit.annual_rate);
+	if (account.deposit.annual_rate < 0 || account.deposit.annual_rate > 100) {
+		printf("Wrong deposit parameters. Stopping...");
+		return;
+	}
+
+	printf("Please input duration of deposit in months (minimum 1 month, maximum 60 months): ");
+	scanf("%d", &account.deposit.months_amount);
+	if (account.deposit.months_amount < 1 || account.deposit.months_amount > 60) {
+		printf("Wrong deposit parameters. Stopping...");
+		return;
+	}
+
+	printf("Please input current balance in rubles: ");
+	scanf("%f", &account.balance);
+	if (account.balance < 0) {
+		printf("Wrong account balance. Stopping...");
+		return;
+	}
+
+	printf("Calculating...\n\n");
+	account.balance_per_month[0] = account.balance;
+	for (int month = 1; month <= account.deposit.months_amount; month++) {
+		account.balance_per_month[month] = round(account.balance_per_month[month - 1] *
+			                               (100 + account.deposit.annual_rate / 12)) / 100;
+	}
+
+	printf("Future deposit status:\n");
+	for (int month = 1; month <= account.deposit.months_amount; month++) {
+		printf("Month %2d: %8.2f\n", month, account.balance_per_month[month]);
+	}
+}
