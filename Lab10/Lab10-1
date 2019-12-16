@@ -1,0 +1,67 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+struct point {
+	double x;
+	double y;
+};
+double distance(struct point a, struct point b)
+{
+	return sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y));
+};
+struct points {
+	struct point p[1000];
+};
+struct matrix_type {
+	double d[100][100];
+};
+int n;
+void create_points(struct points **pp) {
+	*pp = malloc(sizeof(struct points));
+}
+void create_matrix(struct matrix_type **m) {
+	*m = malloc(sizeof(struct matrix_type));
+}
+void fill_matrix(struct matrix_type* m, struct points *pp) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			m->d[i][j] = distance(pp->p[i],pp->p[j]);
+		}
+	}
+}
+void show_matrix(struct matrix_type* m) {
+	printf("Distance from n to n-1");
+	for (int i = 0; i < n; i++) {
+		printf("\n");
+		for (int j = 0; j < n; j++) {
+			if (i != j)
+				printf("%.2lf\t", m->d[i][j]);
+		}
+	}
+}
+void input_points(struct points* pp) {
+	printf("lab-10\n");
+	printf("Task - 2\n");
+	printf("Enter number of points: ");
+	scanf("%d", &n);
+
+	for (int i = 0; i < n; i++) {
+		printf("\nEnter coordinates of point %d: \n", i + 1);
+		printf("x:");
+		scanf("%lf", &pp->p[i].x);
+		printf("y:");
+		scanf("%lf", &pp->p[i].y);
+	}
+}
+int main() {
+	struct matrix_type* m = 0;
+	struct points* pp = 0;
+	create_points(&pp);
+	input_points(pp);
+	create_matrix(&m);
+	fill_matrix(m, pp);
+	show_matrix(m);
+	free(m);
+	free(pp);
+}
