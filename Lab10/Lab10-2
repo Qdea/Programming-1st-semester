@@ -1,0 +1,76 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+
+char cmp[5] = "\"'. ";
+int cnt = 0;
+char w[100];
+char* dest_saved, * src_saved;
+
+void clear(char* dest, char* src)
+{
+	int pos = strcspn(src, cmp);
+
+	char c = *(src + pos);
+	if (c != '\0') pos++;
+	if (pos > 0) {
+		strncpy(dest, src, pos);
+		*(dest + pos) = '\0';
+	}
+
+	switch (c) {
+	case '\0': {
+		return;
+	}
+	case '.': {
+		int next = pos;
+		while (*(src + next) == ' ') {
+			next++;
+		}
+		if (*(src + next) != '\0') {
+			clear(dest + pos, src + pos);
+		}
+		return;
+	}
+	case ' ': {
+		int next = pos;
+		while (*(src + next) == ' ') {
+			next++;
+		}
+		clear(dest + pos, src + next);
+		return;
+	}
+	}
+
+	if (cnt > 0 && w[cnt - 1] == c) {
+		cnt--;
+		dest_saved = dest + pos;
+		src_saved = src + pos;
+		return;
+	}
+	else {
+		dest_saved = 0;
+		src_saved = 0;
+		w[cnt] = c;
+		cnt++;
+		int next = pos;
+		while (*(src + next) == ' ') {
+			next++;
+		}
+		clear(dest + pos, src + next);
+		if (dest_saved && src_saved) {
+			clear(dest_saved, src_saved);
+		}
+	}
+}
+
+void main()
+{
+	char dest[1000], src[1000];
+	printf("Enter your string please: ");
+	fgets(src, sizeof(src), stdin);
+	int pos = strcspn(src, "\n\r");
+	*(src + pos) = '\0';
+	clear(dest, src);
+	printf("Ready string:@%s@\n", dest);
+}
