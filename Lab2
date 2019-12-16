@@ -1,0 +1,12 @@
+#include<stdio.h>
+#include<math.h>
+main() {
+	double alpha, z1, z2, pi=3.14;
+	scanf_s("%lf", &alpha);
+	alpha = alpha * pi / 180;
+	z1 = (sin((pi/2)+(3*alpha)))/(1-sin((3*alpha) - pi));
+	z2 = 1/(tan(((5 * pi) / 4) + ((3 * alpha) / 2)));
+	printf("%f\n", z1);
+	printf("%f\n", z2);
+	return 0;
+}
