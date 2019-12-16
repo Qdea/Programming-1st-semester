@@ -1,0 +1,20 @@
+#define CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+void main() {
+	int chislo;
+	char symbol;
+
+	printf("First: ");
+	scanf_s("%i", &chislo);
+
+	while (getchar() != '\n') continue;
+
+	printf("Second: ");
+	scanf_s("%c", &symbol);
+
+	while (getchar() != '\n') continue;
+
+	printf("chislo=%d\n", chislo);
+	printf("symbol=%c\n", symbol);
+}
