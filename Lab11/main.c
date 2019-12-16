@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "ring.h"
 
+
 void main()
 {
 	struct ring ring1;
